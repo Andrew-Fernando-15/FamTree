@@ -15,7 +15,7 @@ CURRENT STATUS
 Stage 1: Foundation ..................... DONE
 Stage 2: Project Architecture ........... DONE
 Stage 3: Supabase Setup ................. DONE
-Stage 4: Database Schema ................ PENDING
+Stage 4: Database Schema ................ DONE
 Stage 5: Database Security (RLS) ........ PENDING
 Stage 6: Authentication Foundation ...... PENDING
 Stage 7: Registration Flow .............. PENDING
@@ -71,7 +71,7 @@ Goal: Connect frontend to Supabase
 - Create src/lib/supabase.ts client
 - Test connection
 
------ STAGE 4: DATABASE SCHEMA -----
+----- STAGE 4: DATABASE SCHEMA (DONE) -----
 Goal: Create all tables according to Data Model document
 Tables: family_members, accounts, relationships, etc.
 

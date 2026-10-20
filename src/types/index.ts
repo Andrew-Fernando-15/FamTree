@@ -1,21 +1,9 @@
 /**
- * FamTree — Core Domain Type Definitions (Stage 1 Baseline)
+ * FamTree — Core Domain Type Definitions
  * Based on 00_FamTree_Master_Specification and Data Model specifications.
- * These types serve as foundational contracts for subsequent stages.
  */
 
-export type LifeStatus = 'active' | 'deceased';
-
-export type UserRole = 'member' | 'admin';
-
-export type RelationshipType = 
-  | 'father'
-  | 'mother'
-  | 'spouse'
-  | 'son'
-  | 'daughter'
-  | 'brother'
-  | 'sister';
+export * from './database';
 
 export interface FamilyMember {
   id: string;
@@ -24,7 +12,7 @@ export interface FamilyMember {
   motherName?: string;
   surname: string;
   dateOfBirth?: string;
-  lifeStatus: LifeStatus;
+  lifeStatus: 'active' | 'deceased';
   primaryEmail?: string;
   secondaryEmail?: string;
   phone?: string;
@@ -40,7 +28,7 @@ export interface UserAccount {
   id: string;
   authUserId: string;
   linkedMemberId: string;
-  role: UserRole;
+  role: 'member' | 'admin' | 'level2_admin';
   isVerified: boolean;
   createdAt?: string;
 }
