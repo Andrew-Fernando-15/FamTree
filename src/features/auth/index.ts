@@ -6,5 +6,7 @@ export * from './types';
 export * from './LoginForm';
 export * from './RegistrationForm';
 export * from './VerificationStep';
+export * from './FamilyMatchingStep';
+export * from './ContactAdminView';
 export * from './ForgotPasswordModal';
 export * from './AuthModal';

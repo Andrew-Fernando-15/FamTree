@@ -20,3 +20,5 @@ FAMTREE DEVELOPMENT LOG
 [2026-10-20 13:52] Stage 7 (Registration Flow) completed successfully: implemented 3-step progressive wizard (Identity, Contact, Security), FR-03 age categories (under 15 blocked, 15-49 phone & email required, 50+ phone required & email optional), strictly no DOB collected, password confirmation matching, AuthModal integration
 [2026-10-20 14:08] Stage 8 (Email/Phone Verification) started
 [2026-10-20 14:21] Stage 8 (Email/Phone Verification) completed successfully: created verificationService (SHA-256 hashed 6-digit OTP, 10m expiry, 5-attempt rate limit, 60s resend cooldown), VerificationStep UI (auto-advancing 6-box input, alpha dispatch preview & autofill), integrated into 4-step RegistrationForm wizard, App checklist & badge updated
+[2026-10-20 14:28] Stage 9 (Family Matching) started
+[2026-10-20 14:39] Stage 9 (Family Matching) completed successfully: created familyMatchingService, FamilyMatchingStep (single unique match FR-06 with DOB & parents, duplicate choices FR-07, candidate rejection FR-08), ContactAdminView with WhatsApp unprefilled chat & support email (FR-09), integrated into RegistrationForm wizard and App checklist

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import type { AgeCategory, RegistrationFormData } from './types';
+import type { FamilyMember } from '../familyTree/types';
 import { VerificationStep } from './VerificationStep';
+import { FamilyMatchingStep } from './FamilyMatchingStep';
 import './auth.css';
 
 interface RegistrationFormProps {
@@ -14,8 +16,9 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSwitchToLogin,
   onContactAdminClick,
 }) => {
-  // Step: 1 = Identity, 2 = Contact, 3 = Verification (FR-04), 4 = Password & Credentials (FR-01)
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  // Step: 1 = Identity, 2 = Contact, 3 = Verification (FR-04), 4 = Security (FR-01), 5 = Tree Match (FR-05, FR-06, FR-07)
+  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
+  const [matchedMember, setMatchedMember] = useState<FamilyMember | null>(null);
 
   // Form State
   const [formData, setFormData] = useState<RegistrationFormData>({
@@ -79,7 +82,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
     setStep(3); // Advance to Verification Step (FR-04)
   };
 
-  // Step 4 Validation & Submit (FR-01)
+  // Step 4 Validation & Advance to Family Matching (FR-05)
   const handleSubmitStep4 = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.password) {
@@ -98,13 +101,18 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
     }
 
     setErrorMessage(null);
+    setStep(5); // Proceed to Family Matching in Tree (FR-05, FR-06)
+  };
+
+  const handleMatchConfirmed = (member: FamilyMember) => {
+    setMatchedMember(member);
     setIsSuccess(true);
     onSuccess?.(formData);
   };
 
   return (
     <div className="auth-body">
-      {/* Wizard Step Progress (FR-02, FR-04) */}
+      {/* Wizard Step Progress (FR-02, FR-04, FR-05) */}
       <div className="step-wizard" aria-label="Registration Progress">
         <div className={`step-node ${step === 1 ? 'active' : step > 1 ? 'completed' : ''}`}>
           <div className="step-circle">{step > 1 ? '✓' : '1'}</div>
@@ -118,9 +126,13 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
           <div className="step-circle">{step > 3 ? '✓' : '3'}</div>
           <span className="step-label">Verify</span>
         </div>
-        <div className={`step-node ${step === 4 ? 'active' : ''}`}>
-          <div className="step-circle">4</div>
+        <div className={`step-node ${step === 4 ? 'active' : step > 4 ? 'completed' : ''}`}>
+          <div className="step-circle">{step > 4 ? '✓' : '4'}</div>
           <span className="step-label">Security</span>
+        </div>
+        <div className={`step-node ${step === 5 ? 'active' : ''}`}>
+          <div className="step-circle">5</div>
+          <span className="step-label">Match</span>
         </div>
       </div>
 
@@ -137,23 +149,52 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       )}
 
       {/* Success State */}
-      {isSuccess ? (
+      {isSuccess && matchedMember ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', textAlign: 'center' }}>
           <div className="auth-alert auth-alert-success" role="status">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <polyline points="20 6 9 17 4 12" />
             </svg>
             <div>
-              <strong>Registration Details Recorded!</strong>
+              <strong>Profile Matched & Identity Confirmed! (FR-06)</strong>
               <p style={{ marginTop: '2px', fontSize: '0.8125rem' }}>
-                Your identity basics, contact channels ({formData.phone}
-                {formData.primaryEmail ? `, ${formData.primaryEmail}` : ''}), and credentials have been staged.
+                Confirmed member: <strong>{matchedMember.name} {matchedMember.surname}</strong> (Born: {matchedMember.date_of_birth})
               </p>
             </div>
           </div>
 
+          <div className="candidate-match-card" style={{ textAlign: 'left' }}>
+            <div className="candidate-card-header">
+              <div className="candidate-avatar-badge">
+                {matchedMember.name.charAt(0)}{matchedMember.surname.charAt(0)}
+              </div>
+              <div>
+                <h4 className="candidate-fullname">{matchedMember.name} {matchedMember.surname}</h4>
+                <span className="candidate-status-pill">{matchedMember.life_status}</span>
+              </div>
+            </div>
+            <div className="candidate-meta-grid">
+              <div className="meta-item">
+                <span className="meta-label">Father</span>
+                <strong className="meta-value">{matchedMember.father_name || 'Not recorded'}</strong>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Mother</span>
+                <strong className="meta-value">{matchedMember.mother_name || 'Not recorded'}</strong>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Verified Phone</span>
+                <strong className="meta-value">{formData.phone}</strong>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Verified Email</span>
+                <strong className="meta-value">{formData.primaryEmail || 'None (Age 50+)'}</strong>
+              </div>
+            </div>
+          </div>
+
           <p className="auth-subtitle">
-            Next: Contact channel verification codes will be dispatched and verified in <strong>Stage 8</strong>.
+            Next: Permanent database account linking and credentials will be finalized in <strong>Stage 10 (Account Linking)</strong>.
           </p>
 
           <button
@@ -165,6 +206,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
           </button>
         </div>
       ) : (
+
         <>
           {/* STEP 1: IDENTITY BASICS */}
           {step === 1 && (
@@ -466,13 +508,26 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <button
                   type="submit"
                   className="btn-primary"
-                  style={{ width: 'auto', minWidth: '150px' }}
+                  style={{ width: 'auto', minWidth: '180px' }}
                   id="btn-register-submit"
                 >
-                  Complete Registration
+                  Next: Match Family Profile →
                 </button>
               </div>
             </form>
+          )}
+
+          {/* STEP 5: FAMILY MATCHING (FR-05, FR-06, FR-07, FR-08) */}
+          {step === 5 && (
+            <FamilyMatchingStep
+              name={formData.name}
+              surname={formData.surname}
+              fatherName={formData.fatherName}
+              motherName={formData.motherName}
+              onBack={() => setStep(4)}
+              onMatchConfirmed={handleMatchConfirmed}
+              onSwitchToLogin={onSwitchToLogin}
+            />
           )}
         </>
       )}

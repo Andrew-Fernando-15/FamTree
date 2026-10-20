@@ -20,7 +20,7 @@ Stage 5: Database Security (RLS) ........ DONE
 Stage 6: Authentication Foundation ...... DONE
 Stage 7: Registration Flow .............. DONE
 Stage 8: Email/Phone Verification ....... DONE
-Stage 9: Family Matching ................ PENDING
+Stage 9: Family Matching ................ DONE
 Stage 10: Account-to-Member Linking ..... PENDING
 Stage 11: Contact Admin ................. PENDING
 Stage 12: Dashboard ..................... PENDING
@@ -104,8 +104,18 @@ Goal: Cryptographic OTP contact channel verification (FR-04, TRD §7)
 - Development preview simulation banner with one-click auto-fill for testing
 - Seamless integration into Registration wizard before credentials step
 
------ STAGE 9 onwards -----
+----- STAGE 9: FAMILY MATCHING (DONE) -----
+Goal: Preconfigured tree search and identity confirmation (FR-05, FR-06, FR-07, FR-08, FR-09)
+- Preconfigured family tree check against family_members table (FR-05)
+- Single candidate confirmation card with parents' names, DOB, and life status (FR-06)
+- Multiple duplicate candidate choices with parents and DOBs (FR-07)
+- Missing tree records and candidate mismatch routing to Contact Admin (FR-08)
+- WhatsApp direct chat (unprefilled) and support email loaded from admin_contacts (FR-09)
+- Seamless 5th step in registration flow
+
+----- STAGE 10 onwards -----
 Follow the official EI Guidance document in /docs
+
 
 
 =====================================================
