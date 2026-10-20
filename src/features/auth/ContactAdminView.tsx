@@ -118,7 +118,7 @@ export const ContactAdminView: React.FC<ContactAdminViewProps> = ({
   const whatsappUrl = `https://wa.me/${whatsappClean}`;
 
   const emailSubject = encodeURIComponent(`FamTree Inquiry: ${currentGuidance.title}`);
-  const emailUrl = `mailto:${adminContact?.support_email || 'admin@famtree.internal'}?subject=${emailSubject}`;
+  const emailUrl = `mailto:${adminContact?.support_email || 'admin@gmail.com'}?subject=${emailSubject}`;
 
   const handleCopy = async (type: 'phone' | 'email', text: string) => {
     try {
@@ -272,12 +272,12 @@ export const ContactAdminView: React.FC<ContactAdminViewProps> = ({
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
-                <span>Email: {adminContact?.support_email || 'admin@famtree.internal'}</span>
+                <span>Email: {adminContact?.support_email || 'admin@gmail.com'}</span>
               </a>
               <button
                 type="button"
                 className="btn-copy-mini"
-                onClick={() => handleCopy('email', adminContact?.support_email || 'admin@famtree.internal')}
+                onClick={() => handleCopy('email', adminContact?.support_email || 'admin@gmail.com')}
                 title="Copy email address"
                 id="btn-copy-admin-email"
               >

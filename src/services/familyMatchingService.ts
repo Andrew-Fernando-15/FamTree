@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase';
 import type { AdminContact, FamilyMatchResult, FamilyMember } from '../features/familyTree/types';
 
 // Preconfigured sample lineage members used as resilient fallback
-const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
+export const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
   {
     id: 'm3000000-0000-0000-0000-000000000003',
     name: 'Andrew',
@@ -13,7 +13,7 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: 'm2000000-0000-0000-0000-000000000002',
     date_of_birth: '1996-05-18',
     life_status: 'active',
-    primary_email: 'andrew@famtree.internal',
+    primary_email: 'andrew@gmail.com',
     secondary_email: null,
     phone: '+15550104',
     work_status: 'Product Lead',
@@ -32,7 +32,7 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: 'm2000000-0000-0000-0000-000000000002',
     date_of_birth: '1998-08-20',
     life_status: 'active',
-    primary_email: 'aaron@famtree.internal',
+    primary_email: 'aaron@gmail.com',
     secondary_email: null,
     phone: '+15550102',
     work_status: 'Software Engineer',
@@ -51,7 +51,7 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: 'm2000000-0000-0000-0000-000000000002',
     date_of_birth: '2002-03-14',
     life_status: 'active',
-    primary_email: 'chloe@famtree.internal',
+    primary_email: 'chloe@gmail.com',
     secondary_email: null,
     phone: '+15550103',
     work_status: 'Designer',
@@ -70,7 +70,7 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: 'm1000000-0000-0000-0000-000000000002',
     date_of_birth: '1970-06-15',
     life_status: 'active',
-    primary_email: 'charles@famtree.internal',
+    primary_email: 'charles@gmail.com',
     secondary_email: null,
     phone: '+15550100',
     work_status: 'Executive',
@@ -89,7 +89,7 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: null,
     date_of_birth: '1972-11-03',
     life_status: 'active',
-    primary_email: 'diana@famtree.internal',
+    primary_email: 'diana@gmail.com',
     secondary_email: null,
     phone: '+15550101',
     work_status: 'Educator',
@@ -108,9 +108,9 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: null,
     date_of_birth: '1945-04-12',
     life_status: 'active',
-    primary_email: null,
+    primary_email: 'arthur@gmail.com',
     secondary_email: null,
-    phone: null,
+    phone: '+15550105',
     work_status: 'Retired',
     study_status: null,
     work_details: null,
@@ -127,9 +127,9 @@ const DEFAULT_SEED_MEMBERS: FamilyMember[] = [
     mother_member_id: null,
     date_of_birth: '1948-09-24',
     life_status: 'active',
-    primary_email: null,
+    primary_email: 'beatrice@gmail.com',
     secondary_email: null,
-    phone: null,
+    phone: '+15550106',
     work_status: 'Retired',
     study_status: null,
     work_details: null,
@@ -245,7 +245,7 @@ export async function getAdminContactInfo(): Promise<AdminContact> {
   return {
     id: 'a0000000-0000-0000-0000-000000000001',
     whatsapp_number: '+1234567890',
-    support_email: 'admin@famtree.internal',
+    support_email: 'admin@gmail.com',
     instructions:
       'If your account cannot be matched automatically or your profile is missing from the tree, please contact your family administrator for verification and entry.',
     is_active: true,

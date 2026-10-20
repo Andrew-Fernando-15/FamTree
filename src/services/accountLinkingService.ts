@@ -35,7 +35,7 @@ export async function createAndLinkAccount(
   // 1. Resolve authentication email identifier (FR-03: 50+ age category may not have email)
   const authEmail = cleanEmail
     ? cleanEmail.toLowerCase()
-    : `${cleanPhone.replace(/[^0-9]/g, '')}@famtree.internal`;
+    : `${cleanPhone.replace(/[^0-9]/g, '')}@gmail.com`;
 
   try {
     // 2. Pre-check: Ensure tree member isn't already linked to another account (FR-22)

@@ -68,6 +68,87 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           : 'FamTree login accepts your 4 family name components in order, followed by your password (FR-10).'}
       </p>
 
+      {/* Quick Sample Tree Credentials helper */}
+      <div style={{
+        background: 'rgba(5, 150, 105, 0.08)',
+        border: '1px solid rgba(16, 185, 129, 0.25)',
+        borderRadius: '10px',
+        padding: '10px 14px',
+        marginBottom: '16px',
+        fontSize: '0.82rem',
+        color: '#a7f3d0'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+          <span style={{ fontWeight: 600, color: '#34d399' }}>Sample Tree Credentials</span>
+          <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Pass: Password123!</span>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+          <button
+            type="button"
+            className="btn-badge"
+            style={{
+              background: 'rgba(16, 185, 129, 0.2)',
+              border: '1px solid rgba(16, 185, 129, 0.4)',
+              color: '#ffffff',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setUseEmailMode(true);
+              setEmail('andrew@gmail.com');
+              setPassword('Password123!');
+              setErrorMessage(null);
+            }}
+          >
+            Andrew (andrew@gmail.com)
+          </button>
+          <button
+            type="button"
+            className="btn-badge"
+            style={{
+              background: 'rgba(16, 185, 129, 0.2)',
+              border: '1px solid rgba(16, 185, 129, 0.4)',
+              color: '#ffffff',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setUseEmailMode(true);
+              setEmail('aaron@gmail.com');
+              setPassword('Password123!');
+              setErrorMessage(null);
+            }}
+          >
+            Aaron (aaron@gmail.com)
+          </button>
+          <button
+            type="button"
+            className="btn-badge"
+            style={{
+              background: 'rgba(59, 130, 246, 0.2)',
+              border: '1px solid rgba(59, 130, 246, 0.4)',
+              color: '#93c5fd',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setUseEmailMode(true);
+              setEmail('charles@gmail.com');
+              setPassword('Password123!');
+              setErrorMessage(null);
+            }}
+          >
+            Charles (Admin)
+          </button>
+        </div>
+      </div>
+
       {errorMessage && (
         <div className="auth-alert auth-alert-error" role="alert">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
