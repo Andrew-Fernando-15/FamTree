@@ -14,7 +14,7 @@ CURRENT STATUS
 =====================================================
 Stage 1: Foundation ..................... DONE
 Stage 2: Project Architecture ........... DONE
-Stage 3: Supabase Setup ................. PENDING
+Stage 3: Supabase Setup ................. DONE
 Stage 4: Database Schema ................ PENDING
 Stage 5: Database Security (RLS) ........ PENDING
 Stage 6: Authentication Foundation ...... PENDING
@@ -65,7 +65,7 @@ src/
 
 Do not implement features yet.
 
------ STAGE 3: SUPABASE SETUP -----
+----- STAGE 3: SUPABASE SETUP (DONE) -----
 Goal: Connect frontend to Supabase
 - Create .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
 - Create src/lib/supabase.ts client

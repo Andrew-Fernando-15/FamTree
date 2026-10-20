@@ -8,3 +8,5 @@ FAMTREE DEVELOPMENT LOG
 [2026-10-20 12:10] Stage 2 (Project Architecture) started
 [2026-10-20 12:13] Stage 2 (Project Architecture) completed successfully: created components/, pages/, layouts/, features/{auth, dashboard, familyTree, member, profile, admin}, services/, hooks/, types/, utils/, lib/, assets/ with placeholders
 [2026-10-20 12:29] Pushed Stage 1 + Stage 2 codebase to GitHub (Andrew-Fernando-15/FamTree)
+[2026-10-20 12:32] Stage 3 (Supabase Setup) started
+[2026-10-20 12:34] Stage 3 (Supabase Setup) completed successfully: installed @supabase/supabase-js, created .env with anon key, initialized src/lib/supabase.ts client, landing page updated

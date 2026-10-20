@@ -28,7 +28,7 @@ export const App: React.FC = () => {
               </svg>
               <span className="brand-title">FamTree</span>
             </a>
-            <span className="stage-pill" id="stage-badge">Stage 2: Architecture</span>
+            <span className="stage-pill" id="stage-badge">Stage 3: Supabase Setup</span>
           </div>
           <div className="header-actions">
             <span className="docs-link" id="docs-indicator">
@@ -56,7 +56,7 @@ export const App: React.FC = () => {
         <section className="hero-section" id="hero-section">
           <div className="hero-tag" id="status-pill">
             <span className="status-dot"></span>
-            <span>Stage 2 Architecture Configured</span>
+            <span>Stage 3 Supabase Initialized</span>
           </div>
           <h1 className="hero-title">
             Private, Structured <br />
@@ -190,15 +190,13 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="check-item pending" id="check-supabase-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
-                <circle cx="12" cy="12" r="9" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
+            <div className="check-item done" id="check-supabase-status">
+              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
               </svg>
               <div className="check-details">
-                <span className="check-name">Supabase Setup</span>
-                <span className="check-status">Scheduled for Stage 3</span>
+                <span className="check-name">Supabase Client Setup</span>
+                <span className="check-status">src/lib/supabase.ts configured with anon key</span>
               </div>
             </div>
 
@@ -224,15 +222,15 @@ export const App: React.FC = () => {
             <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <p>
-            <strong>Stage 2 Constraint Adherence:</strong> Scalable folder architecture established. No real application
-            features (login, tree visualization, member pop-up) or Supabase client connections are active. Ready for Stage 3.
+            <strong>Stage 3 Constraint Adherence:</strong> Supabase client initialized via public anon key. No service_role key used.
+            Authentication, schema migrations, and application features remain strictly deferred to subsequent stages.
           </p>
         </aside>
       </main>
 
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
-        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 2 Completed</p>
+        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 3 Completed</p>
       </footer>
     </div>
   );
