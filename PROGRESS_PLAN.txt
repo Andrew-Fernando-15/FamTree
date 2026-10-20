@@ -17,7 +17,7 @@ Stage 2: Project Architecture ........... DONE
 Stage 3: Supabase Setup ................. DONE
 Stage 4: Database Schema ................ DONE
 Stage 5: Database Security (RLS) ........ DONE
-Stage 6: Authentication Foundation ...... PENDING
+Stage 6: Authentication Foundation ...... DONE
 Stage 7: Registration Flow .............. PENDING
 Stage 8: Email/Phone Verification ....... PENDING
 Stage 9: Family Matching ................ PENDING
@@ -78,7 +78,15 @@ Tables: family_members, accounts, relationships, etc.
 ----- STAGE 5: DATABASE SECURITY (RLS) (DONE) -----
 Goal: Add Row Level Security policies
 
------ STAGE 6 onwards -----
+----- STAGE 6: AUTHENTICATION FOUNDATION (DONE) -----
+Goal: Implement login, session persistence, and recovery
+- AuthContext and useAuth hook for session lifecycle
+- FR-10 Name components login (name, father_name, mother_name, surname, password)
+- Direct email/password login route
+- FR-11 Password recovery with Contact Admin fallback
+- AuthModal dialog and header integration
+
+----- STAGE 7 onwards -----
 Follow the official EI Guidance document in /docs
 
 =====================================================

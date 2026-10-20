@@ -1,4 +1,4 @@
 /**
- * Custom application hooks placeholder.
+ * Custom application hooks.
  */
-export {};
+export * from './useAuth';

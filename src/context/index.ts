@@ -1,4 +1,5 @@
 /**
- * Global React Context providers placeholder (AuthContext, TreeContext, etc.).
+ * Global React Context providers and definitions.
  */
-export {};
+export * from './authContextDef';
+export * from './AuthContext';

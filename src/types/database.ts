@@ -72,6 +72,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       accounts: {
         Row: {
@@ -101,6 +102,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       relationships: {
         Row: {
@@ -124,6 +126,7 @@ export interface Database {
           relationship_type?: RelationshipType;
           created_at?: string;
         };
+        Relationships: [];
       };
       profile_visibility: {
         Row: {
@@ -162,6 +165,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       verification_records: {
         Row: {
@@ -194,6 +198,7 @@ export interface Database {
           expires_at?: string;
           created_at?: string;
         };
+        Relationships: [];
       };
       admin_contacts: {
         Row: {
@@ -223,6 +228,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

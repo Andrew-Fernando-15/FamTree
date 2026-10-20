@@ -1,4 +1,4 @@
 /**
- * API and data layer services placeholder.
+ * API and data layer services.
  */
-export {};
+export * from './authService';
