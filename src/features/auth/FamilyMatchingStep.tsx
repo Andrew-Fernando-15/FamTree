@@ -67,6 +67,7 @@ export const FamilyMatchingStep: React.FC<FamilyMatchingStepProps> = ({
   if (showContactAdmin) {
     return (
       <ContactAdminView
+        initialCategory={matchResult?.outcome === 'no_match' ? 'missing_tree' : 'profile_mismatch'}
         reason={contactAdminReason}
         onBack={() => setShowContactAdmin(false)}
       />

@@ -6,9 +6,9 @@ import './App.css';
 export const App: React.FC = () => {
   const { user, member, account, logout, isLoading } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalView, setAuthModalView] = useState<'login' | 'register'>('login');
+  const [authModalView, setAuthModalView] = useState<'login' | 'register' | 'contact-admin'>('login');
 
-  const openAuth = (view: 'login' | 'register') => {
+  const openAuth = (view: 'login' | 'register' | 'contact-admin') => {
     setAuthModalView(view);
     setIsAuthModalOpen(true);
   };
@@ -43,12 +43,21 @@ export const App: React.FC = () => {
               </svg>
               <span className="brand-title">FamTree</span>
             </a>
-            <span className="stage-pill" id="stage-badge">Stage 10: Account Linking</span>
+            <span className="stage-pill" id="stage-badge">Stage 11: Contact Admin</span>
           </div>
 
           <div className="header-actions">
             {user ? (
               <div className="user-session-group" id="user-session-nav">
+                <button
+                  type="button"
+                  className="docs-link"
+                  onClick={() => openAuth('contact-admin')}
+                  id="btn-nav-contact-admin-logged"
+                  style={{ cursor: 'pointer', fontWeight: 500 }}
+                >
+                  <span>Contact Admin</span>
+                </button>
                 <div className="user-badge" id="user-badge">
                   <span className="user-avatar-dot"></span>
                   <span>{displayName}</span>
@@ -66,6 +75,15 @@ export const App: React.FC = () => {
               </div>
             ) : (
               <div className="brand-badge-group">
+                <button
+                  type="button"
+                  className="docs-link"
+                  onClick={() => openAuth('contact-admin')}
+                  id="btn-nav-contact-admin"
+                  style={{ cursor: 'pointer', fontWeight: 500 }}
+                >
+                  <span>Contact Admin</span>
+                </button>
                 <button
                   type="button"
                   className="docs-link"
@@ -105,7 +123,7 @@ export const App: React.FC = () => {
         <section className="hero-section" id="hero-section">
           <div className="hero-tag" id="status-pill">
             <span className="status-dot"></span>
-            <span>Stage 10 Account-to-Member Linking Active</span>
+            <span>Stage 11 Contact Admin Active (FR-09)</span>
           </div>
           <h1 className="hero-title">
             Private, Structured <br />
@@ -113,7 +131,7 @@ export const App: React.FC = () => {
           </h1>
           <p className="hero-subtitle">
             FamTree connects family members through secure member linking, interactive tree exploration,
-            and privacy-controlled profiles. Stage 10 permanently binds accounts to tree profiles with contact synchronization (FR-22).
+            and privacy-controlled profiles. Stage 11 provides dedicated administrator contact assistance via unprefilled WhatsApp chat and support email (FR-08, FR-09).
           </p>
 
           {/* Quick Registration CTA for Logged-Out Visitors */}
@@ -342,15 +360,25 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="check-item pending" id="check-contact-admin-status">
+            <div className="check-item done" id="check-contact-admin-status">
+              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div className="check-details">
+                <span className="check-name">Contact Admin Page</span>
+                <span className="check-status">FR-09 direct WhatsApp unprefilled chat, support email & contextual assistance</span>
+              </div>
+            </div>
+
+            <div className="check-item pending" id="check-dashboard-status">
               <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
                 <circle cx="12" cy="12" r="9" />
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
               <div className="check-details">
-                <span className="check-name">Contact Admin Page</span>
-                <span className="check-status">Scheduled for Stage 11 (FR-09)</span>
+                <span className="check-name">Dashboard</span>
+                <span className="check-status">Scheduled for Stage 12</span>
               </div>
             </div>
           </div>
@@ -364,7 +392,7 @@ export const App: React.FC = () => {
             <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <p>
-            <strong>Stage 10 Completed:</strong> Account-to-Member Linking active (FR-22). Verified users are permanently bound to their family member record, credentials and accounts table records are created, and sessions automatically activate. Ready for Stage 11 (Contact Admin Page).
+            <strong>Stage 11 Completed:</strong> Contact Admin assistance is live (FR-09). Unprefilled WhatsApp direct communication, official support email, and contextual inquiry assistance for missing profiles (FR-08), account recovery (FR-11), and protected identity updates (FR-18) are active. Ready for Stage 12 (Dashboard).
           </p>
         </aside>
       </main>
@@ -378,7 +406,7 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
-        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 10 Completed</p>
+        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 11 Completed</p>
       </footer>
     </div>
   );

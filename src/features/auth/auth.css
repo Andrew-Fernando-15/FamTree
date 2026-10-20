@@ -944,3 +944,148 @@
   color: var(--color-brand-accent);
 }
 
+/* Stage 11: Contact Admin Interactive Categories & Channels */
+.contact-category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  justify-content: center;
+}
+
+.category-chip {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.category-chip:hover {
+  border-color: var(--color-brand-primary);
+  color: var(--color-text-primary);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.category-chip.active {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.category-guidance-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.guidance-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.guidance-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+}
+
+.guidance-checklist-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.checklist-title {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-brand-accent);
+  margin-bottom: var(--space-2);
+}
+
+.guidance-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.guidance-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+}
+
+.check-bullet {
+  color: #34d399;
+  font-weight: bold;
+}
+
+.admin-role-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.75rem;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+}
+
+.contact-channel-row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.contact-channel-row .btn-contact-action {
+  flex: 1;
+}
+
+.btn-copy-mini {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.75rem 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.btn-copy-mini:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-accent);
+}
+
+.contact-admin-container.standalone-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+

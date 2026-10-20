@@ -22,7 +22,7 @@ Stage 7: Registration Flow .............. DONE
 Stage 8: Email/Phone Verification ....... DONE
 Stage 9: Family Matching ................ DONE
 Stage 10: Account-to-Member Linking ..... DONE
-Stage 11: Contact Admin ................. PENDING
+Stage 11: Contact Admin ................. DONE
 Stage 12: Dashboard ..................... PENDING
 Stage 13: Family Tree Data Service ...... PENDING
 Stage 14: Family Tree UI ................ PENDING
@@ -122,7 +122,15 @@ Goal: Permanent account creation and member linking (FR-22, TRD §3)
 - AuthContext session activation (setLinkedSession) and automatic login
 - Celebratory linked card with role and FR-22 verification status
 
------ STAGE 11 onwards -----
+----- STAGE 11: CONTACT ADMIN (DONE) -----
+Goal: Provide dedicated, reusable Contact Admin assistance (FR-09, FR-08, FR-11, FR-18)
+- Direct WhatsApp chat link with strictly unprefilled message formatting (FR-09)
+- Official support email integration with one-click copy and mailto: action
+- Interactive contextual inquiry guidance (missing profile FR-08, profile mismatch FR-08, lost credentials FR-11, protected identity update FR-18)
+- Standalone ContactAdminPage and embedded ContactAdminView
+- Accessible directly from header navigation, registration flow, and password recovery
+
+----- STAGE 12 onwards -----
 Follow the official EI Guidance document in /docs
 
 

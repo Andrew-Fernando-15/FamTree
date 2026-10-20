@@ -1,5 +1,4 @@
 /**
- * Top-level application pages placeholder (Landing, DashboardPage, AdminPage, etc.).
- * To be implemented in subsequent stages.
+ * Top-level application pages.
  */
-export {};
+export * from './ContactAdminPage';

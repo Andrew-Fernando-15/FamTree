@@ -96,8 +96,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {currentView === 'contact-admin' && (
           <ContactAdminView
+            initialCategory="lost_credentials"
             reason="If your account is not linked or your registered phone and email channels are inaccessible, please reach out to your family administrator directly (FR-09, FR-11)."
             onBack={() => setCurrentView('login')}
+            onClose={handleClose}
           />
         )}
       </div>
