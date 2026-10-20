@@ -13,3 +13,5 @@ export * from './familyTree';
 export * from './member';
 export * from './profile';
 export * from './admin';
+export * from './landing';
+
