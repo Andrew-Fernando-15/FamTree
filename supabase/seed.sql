@@ -33,8 +33,10 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO family_members (id, name, father_name, mother_name, surname, father_member_id, mother_member_id, date_of_birth, life_status, primary_email, phone, work_status, study_status)
 VALUES 
   ('m3000000-0000-0000-0000-000000000001', 'Aaron', 'Charles', 'Diana', 'Fernando', 'm2000000-0000-0000-0000-000000000001', 'm2000000-0000-0000-0000-000000000002', '1998-08-20', 'active', 'aaron@famtree.internal', '+15550102', 'Software Engineer', 'Graduate Studies'),
-  ('m3000000-0000-0000-0000-000000000002', 'Chloe', 'Charles', 'Diana', 'Fernando', 'm2000000-0000-0000-0000-000000000001', 'm2000000-0000-0000-0000-000000000002', '2002-03-14', 'active', 'chloe@famtree.internal', '+15550103', 'Designer', 'Undergraduate')
+  ('m3000000-0000-0000-0000-000000000002', 'Chloe', 'Charles', 'Diana', 'Fernando', 'm2000000-0000-0000-0000-000000000001', 'm2000000-0000-0000-0000-000000000002', '2002-03-14', 'active', 'chloe@famtree.internal', '+15550103', 'Designer', 'Undergraduate'),
+  ('m3000000-0000-0000-0000-000000000003', 'Andrew', 'Charles', 'Diana', 'Fernando', 'm2000000-0000-0000-0000-000000000001', 'm2000000-0000-0000-0000-000000000002', '1996-05-18', 'active', 'andrew@famtree.internal', '+15550104', 'Product Lead', 'Alumni')
 ON CONFLICT (id) DO NOTHING;
+
 
 -- 3. Insert explicit lineage relationships
 -- Spouses: Arthur & Beatrice
