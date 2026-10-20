@@ -23,7 +23,7 @@ Stage 8: Email/Phone Verification ....... DONE
 Stage 9: Family Matching ................ DONE
 Stage 10: Account-to-Member Linking ..... DONE
 Stage 11: Contact Admin ................. DONE
-Stage 12: Dashboard ..................... PENDING
+Stage 12: Dashboard ..................... DONE
 Stage 13: Family Tree Data Service ...... PENDING
 Stage 14: Family Tree UI ................ PENDING
 Stage 15: Member Pop-up ................. PENDING
@@ -130,7 +130,16 @@ Goal: Provide dedicated, reusable Contact Admin assistance (FR-09, FR-08, FR-11,
 - Standalone ContactAdminPage and embedded ContactAdminView
 - Accessible directly from header navigation, registration flow, and password recovery
 
------ STAGE 12 onwards -----
+----- STAGE 12: DASHBOARD (DONE) -----
+Goal: Authenticated member landing workspace and lineage hub (FR-12, TRD §4)
+- Member welcome greeting with role badge (member, admin, level2_admin) and avatar
+- Quick lineage metrics (connected members, generations depth, branch heritage, privacy shield)
+- Action shortcuts into Family Tree (Stage 14), Profile & Privacy (Stage 16), and Contact Admin (Stage 11)
+- Verified member identity summary card (FR-22) with parents, birthdate, and contact channels
+- Lineage notices and governance feed (FR-17, FR-18)
+- Standalone DashboardPage and embedded DashboardView integrated into App.tsx
+
+----- STAGE 13 onwards -----
 Follow the official EI Guidance document in /docs
 
 
