@@ -44,7 +44,7 @@ export const App: React.FC = () => {
               </svg>
               <span className="brand-title">FamTree</span>
             </a>
-            <span className="stage-pill" id="stage-badge">Stage 12: Dashboard</span>
+            <span className="stage-pill" id="stage-badge">Private Heritage Network</span>
           </div>
 
           <div className="header-actions">
@@ -109,9 +109,6 @@ export const App: React.FC = () => {
                 >
                   <span>Register</span>
                 </button>
-                <span className="docs-link" id="docs-indicator">
-                  <span>/docs</span>
-                </span>
               </div>
             )}
           </div>
@@ -134,33 +131,32 @@ export const App: React.FC = () => {
             <section className="hero-section" id="hero-section">
               <div className="hero-tag" id="status-pill">
                 <span className="status-dot"></span>
-                <span>Stage 12 Member Dashboard & Lineage Hub Active</span>
+                <span>Private & Verified Lineage Registry</span>
               </div>
               <h1 className="hero-title">
-                Private, Structured <br />
-                <span className="gradient-text">Digital Family Tree</span>
+                Discover, Connect & Preserve <br />
+                <span className="gradient-text">Your Family Heritage</span>
               </h1>
               <p className="hero-subtitle">
-                FamTree connects family members through secure member linking, interactive tree exploration,
-                and privacy-controlled profiles. Stage 12 delivers the central authenticated member dashboard with ancestry metrics and lineage gateways (FR-12).
+                A private, structured digital space to document your ancestry, explore interactive generational trees, and keep family connections alive across generations.
               </p>
 
-              {/* Quick Registration CTA for Logged-Out Visitors */}
-              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-3)' }}>
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-3)', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <button
                   type="button"
                   className="btn-primary"
                   onClick={() => openAuth('register')}
-                  style={{ width: 'auto', padding: '0.75rem 1.75rem', fontSize: '0.9375rem' }}
+                  style={{ width: 'auto', padding: '0.85rem 1.85rem', fontSize: '0.9375rem', fontWeight: 600 }}
                   id="hero-register-btn"
                 >
-                  Start Registration (3 Steps) →
+                  Join Family Tree (3 Steps) →
                 </button>
                 <button
                   type="button"
                   className="btn-secondary"
                   onClick={() => openAuth('login')}
-                  style={{ width: 'auto', padding: '0.75rem 1.5rem', fontSize: '0.9375rem' }}
+                  style={{ width: 'auto', padding: '0.85rem 1.6rem', fontSize: '0.9375rem', fontWeight: 600 }}
                   id="hero-signin-btn"
                 >
                   Sign In
@@ -168,224 +164,77 @@ export const App: React.FC = () => {
               </div>
             </section>
 
-            {/* Foundation Pillars */}
-            <section className="cards-grid" id="foundation-cards">
-              <div className="foundation-card" id="card-progressive-registration">
+            {/* Feature Cards Grid */}
+            <section className="cards-grid" id="feature-cards">
+              <div className="foundation-card" id="card-feature-tree">
+                <div className="card-icon-wrapper">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="5" r="3" />
+                    <circle cx="6" cy="19" r="3" />
+                    <circle cx="18" cy="19" r="3" />
+                    <path d="M12 8v4" />
+                    <path d="M6 16v-1a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1" />
+                  </svg>
+                </div>
+                <h2 className="card-title">Interactive Multi-Gen Tree</h2>
+                <p className="card-description">
+                  Browse and navigate family branches with fluid zoom, pan, and parent-child relationship visual paths.
+                </p>
+                <div className="card-meta">
+                  <span className="card-badge">Visual Canvas</span>
+                </div>
+              </div>
+
+              <div className="foundation-card" id="card-feature-privacy">
+                <div className="card-icon-wrapper">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <h2 className="card-title">Privacy Shield Protection</h2>
+                <p className="card-description">
+                  Contact channels and personal updates are protected by default, accessible exclusively to confirmed family relatives.
+                </p>
+                <div className="card-meta">
+                  <span className="card-badge">Granular Privacy</span>
+                </div>
+              </div>
+
+              <div className="foundation-card" id="card-feature-matching">
                 <div className="card-icon-wrapper">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                     <circle cx="8.5" cy="7" r="4" />
-                    <line x1="20" y1="8" x2="20" y2="14" />
-                    <line x1="23" y1="11" x2="17" y2="11" />
+                    <polyline points="17 11 19 13 23 9" />
                   </svg>
                 </div>
-                <h2 className="card-title">Orderly 3-Step Wizard</h2>
+                <h2 className="card-title">Preconfigured Lineage Matching</h2>
                 <p className="card-description">
-                  Presents registration progressively: Identity Basics → Contact & Age Rule → Security (FR-01, FR-02).
+                  Tree branch matching validates each member profile to eliminate duplicates and preserve genealogical truth.
                 </p>
                 <div className="card-meta">
-                  <span className="card-badge">FR-02 Progressive</span>
+                  <span className="card-badge">FR-22 Linked</span>
                 </div>
               </div>
 
-              <div className="foundation-card" id="card-age-rule">
-                <div className="card-icon-wrapper">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 14 14" />
-                  </svg>
-                </div>
-                <h2 className="card-title">Strict Age Rules (FR-03)</h2>
-                <p className="card-description">
-                  Under-15 accounts disallowed; 15-49 requires phone and email; 50+ phone required with email optional.
-                </p>
-                <div className="card-meta">
-                  <span className="card-badge">FR-03 Age Rules</span>
-                </div>
-              </div>
-
-              <div className="foundation-card" id="card-no-dob">
-                <div className="card-icon-wrapper">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                  </svg>
-                </div>
-                <h2 className="card-title">Privacy Protection</h2>
-                <p className="card-description">
-                  Date of birth is explicitly excluded from registration, minimizing initial data collection friction.
-                </p>
-                <div className="card-meta">
-                  <span className="card-badge">No DOB Collected</span>
-                </div>
-              </div>
-
-              <div className="foundation-card" id="card-auth-session">
+              <div className="foundation-card" id="card-feature-governance">
                 <div className="card-icon-wrapper">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                 </div>
-                <h2 className="card-title">Name Auth & RLS</h2>
+                <h2 className="card-title">Genealogical Governance</h2>
                 <p className="card-description">
-                  FR-10 Name components login, session persistence, and database-level RLS policies on all tables.
+                  Level-2 administrators safeguard lineage integrity, ensuring accurate records and secure family branches.
                 </p>
                 <div className="card-meta">
-                  <span className="card-badge">Stages 5 & 6 Active</span>
+                  <span className="card-badge">Lineage Security</span>
                 </div>
               </div>
             </section>
           </>
         )}
-
-        {/* Stage Checklist */}
-        <section className="checklist-section" id="stage-checklist">
-          <div className="section-header">
-            <div>
-              <h2 className="section-title">Milestone Progress Checklist</h2>
-              <p className="section-desc">Stage-by-stage status aligned with PROGRESS_PLAN.txt</p>
-            </div>
-          </div>
-
-          <div className="checklist-grid">
-            <div className="check-item done" id="check-core-folders">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Project Foundation & Architecture</span>
-                <span className="check-status">React 19, TS, Vite, domain folders</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-supabase-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Supabase Client Setup</span>
-                <span className="check-status">src/lib/supabase.ts with public anon key</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-database-schema">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Database Schema</span>
-                <span className="check-status">6 tables, indexes, triggers & TypeScript types</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-rls-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Database Security (RLS)</span>
-                <span className="check-status">RLS policies enabled on all tables</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-auth-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Authentication Foundation</span>
-                <span className="check-status">FR-10 Name Login, session persistence, logout</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-registration-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Registration Flow</span>
-                <span className="check-status">Progressive wizard, FR-03 age rules, password match</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-verification-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Email/Phone Verification</span>
-                <span className="check-status">FR-04 single-use 6-digit OTP, SHA-256 hash, attempt limits</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-matching-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Family Matching</span>
-                <span className="check-status">FR-05 tree check, FR-06 candidate confirmation, FR-07 duplicate resolution</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-linking-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Account-to-Member Linking</span>
-                <span className="check-status">FR-22 account creation, member linking, contact sync & session active</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-contact-admin-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Contact Admin Page</span>
-                <span className="check-status">FR-09 direct WhatsApp unprefilled chat, support email & contextual assistance</span>
-              </div>
-            </div>
-
-            <div className="check-item done" id="check-dashboard-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Dashboard</span>
-                <span className="check-status">FR-12 member workspace, lineage metrics, verified identity & action gateways active</span>
-              </div>
-            </div>
-
-            <div className="check-item pending" id="check-tree-service-status">
-              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
-                <circle cx="12" cy="12" r="9" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              <div className="check-details">
-                <span className="check-name">Family Tree Data Service</span>
-                <span className="check-status">Scheduled for Stage 13 (FR-13)</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Guardrail Notice */}
-        <aside className="guardrail-banner" id="guardrail-notice">
-          <svg className="banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="16" x2="12" y2="12" />
-            <line x1="12" y1="8" x2="12.01" y2="8" />
-          </svg>
-          <p>
-            <strong>Stage 12 Completed:</strong> Authenticated Member Dashboard is active (FR-12). Signed-in members access a central lineage hub with verified identity cards, ancestry depth metrics, and action shortcuts. Ready for Stage 13 (Family Tree Data Service).
-          </p>
-        </aside>
       </main>
 
       {/* Auth Modal Dialog */}
@@ -397,7 +246,7 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
-        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 12 Completed</p>
+        <p>© 2026 FamTree Heritage Network • Private & Verified Family Registry</p>
       </footer>
     </div>
   );
