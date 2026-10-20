@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { LoginForm } from './LoginForm';
+import { RegistrationForm } from './RegistrationForm';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
 import './auth.css';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultView?: 'login' | 'forgot-password' | 'contact-admin';
+  defaultView?: 'login' | 'register' | 'forgot-password' | 'contact-admin';
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
@@ -14,7 +15,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   defaultView = 'login',
 }) => {
-  const [currentView, setCurrentView] = useState<'login' | 'forgot-password' | 'contact-admin'>(defaultView);
+  const [currentView, setCurrentView] = useState<'login' | 'register' | 'forgot-password' | 'contact-admin'>(defaultView);
 
   const handleClose = () => {
     setCurrentView(defaultView);
@@ -53,6 +54,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="auth-header">
           <h2 className="auth-header-title" id="auth-modal-title">
             {currentView === 'login' && 'Sign In to FamTree'}
+            {currentView === 'register' && 'Create Your FamTree Account'}
             {currentView === 'forgot-password' && 'Account Recovery'}
             {currentView === 'contact-admin' && 'Contact Family Admin'}
           </h2>
@@ -71,6 +73,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <LoginForm
             onSuccess={handleClose}
             onForgotPasswordClick={() => setCurrentView('forgot-password')}
+            onSwitchToRegister={() => setCurrentView('register')}
+            onContactAdminClick={() => setCurrentView('contact-admin')}
+          />
+        )}
+
+        {currentView === 'register' && (
+          <RegistrationForm
+            onSwitchToLogin={() => setCurrentView('login')}
             onContactAdminClick={() => setCurrentView('contact-admin')}
           />
         )}

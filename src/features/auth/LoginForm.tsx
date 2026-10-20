@@ -5,12 +5,14 @@ import './auth.css';
 interface LoginFormProps {
   onSuccess?: () => void;
   onForgotPasswordClick: () => void;
+  onSwitchToRegister?: () => void;
   onContactAdminClick?: () => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({
   onSuccess,
   onForgotPasswordClick,
+  onSwitchToRegister,
   onContactAdminClick,
 }) => {
   const { loginWithNameComponents, loginWithEmail, isLoading } = useAuth();
@@ -227,6 +229,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               <span>Sign In to FamTree</span>
             )}
           </button>
+
+          {onSwitchToRegister && (
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={onSwitchToRegister}
+              id="btn-switch-to-register"
+            >
+              Don&apos;t have an account? Register
+            </button>
+          )}
         </div>
       </form>
     </div>

@@ -18,7 +18,7 @@ Stage 3: Supabase Setup ................. DONE
 Stage 4: Database Schema ................ DONE
 Stage 5: Database Security (RLS) ........ DONE
 Stage 6: Authentication Foundation ...... DONE
-Stage 7: Registration Flow .............. PENDING
+Stage 7: Registration Flow .............. DONE
 Stage 8: Email/Phone Verification ....... PENDING
 Stage 9: Family Matching ................ PENDING
 Stage 10: Account-to-Member Linking ..... PENDING

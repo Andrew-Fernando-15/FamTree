@@ -16,3 +16,5 @@ FAMTREE DEVELOPMENT LOG
 [2026-10-20 13:10] Stage 5 (Database Security - RLS) completed successfully: created migration 20261020000002_rls_policies.sql with RLS policies across all 6 tables and protected identity fields trigger
 [2026-10-20 13:40] Stage 6 (Authentication Foundation) started
 [2026-10-20 13:44] Stage 6 (Authentication Foundation) completed successfully: created authService, AuthContext, useAuth hook, LoginForm (name components FR-10 & email), ForgotPasswordModal (FR-11), AuthModal, and integrated with App header
+[2026-10-20 13:48] Stage 7 (Registration Flow) started
+[2026-10-20 13:52] Stage 7 (Registration Flow) completed successfully: implemented 3-step progressive wizard (Identity, Contact, Security), FR-03 age categories (under 15 blocked, 15-49 phone & email required, 50+ phone required & email optional), strictly no DOB collected, password confirmation matching, AuthModal integration
