@@ -19,7 +19,7 @@ Stage 4: Database Schema ................ DONE
 Stage 5: Database Security (RLS) ........ DONE
 Stage 6: Authentication Foundation ...... DONE
 Stage 7: Registration Flow .............. DONE
-Stage 8: Email/Phone Verification ....... PENDING
+Stage 8: Email/Phone Verification ....... DONE
 Stage 9: Family Matching ................ PENDING
 Stage 10: Account-to-Member Linking ..... PENDING
 Stage 11: Contact Admin ................. PENDING
@@ -73,10 +73,13 @@ Goal: Connect frontend to Supabase
 
 ----- STAGE 4: DATABASE SCHEMA (DONE) -----
 Goal: Create all tables according to Data Model document
-Tables: family_members, accounts, relationships, etc.
+Tables: family_members, accounts, relationships, profile_visibility, verification_records, admin_contacts
 
 ----- STAGE 5: DATABASE SECURITY (RLS) (DONE) -----
 Goal: Add Row Level Security policies
+- RLS enabled across all 6 tables
+- Helper security definer functions
+- Protected identity fields update trigger
 
 ----- STAGE 6: AUTHENTICATION FOUNDATION (DONE) -----
 Goal: Implement login, session persistence, and recovery
@@ -86,8 +89,24 @@ Goal: Implement login, session persistence, and recovery
 - FR-11 Password recovery with Contact Admin fallback
 - AuthModal dialog and header integration
 
------ STAGE 7 onwards -----
+----- STAGE 7: REGISTRATION FLOW (DONE) -----
+Goal: Progressive registration with strict age rule enforcement
+- Progressive multi-step wizard (FR-02)
+- Strict age rules (FR-03: under 15 blocked, 15-49 phone & email required, 50+ phone required & email optional)
+- No Date of Birth requested at registration
+- Password and re-enter password match validation (FR-01)
+
+----- STAGE 8: EMAIL/PHONE VERIFICATION (DONE) -----
+Goal: Cryptographic OTP contact channel verification (FR-04, TRD §7)
+- 6-digit single-use OTP codes with 10-minute expiry and SHA-256 code hash storage
+- Supabase verification_records insertion, matching, and invalidation
+- Maximum 5 failed attempts rate limiting + 60s resend cooldown
+- Development preview simulation banner with one-click auto-fill for testing
+- Seamless integration into Registration wizard before credentials step
+
+----- STAGE 9 onwards -----
 Follow the official EI Guidance document in /docs
+
 
 =====================================================
 RECOVERY INSTRUCTIONS

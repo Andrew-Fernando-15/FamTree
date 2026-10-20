@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { AgeCategory, RegistrationFormData } from './types';
+import { VerificationStep } from './VerificationStep';
 import './auth.css';
 
 interface RegistrationFormProps {
@@ -13,8 +14,8 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSwitchToLogin,
   onContactAdminClick,
 }) => {
-  // Step: 1 = Identity, 2 = Contact & Age Rule, 3 = Password
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  // Step: 1 = Identity, 2 = Contact, 3 = Verification (FR-04), 4 = Password & Credentials (FR-01)
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   // Form State
   const [formData, setFormData] = useState<RegistrationFormData>({
@@ -75,11 +76,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
     }
 
     setErrorMessage(null);
-    setStep(3);
+    setStep(3); // Advance to Verification Step (FR-04)
   };
 
-  // Step 3 Validation & Submit (FR-01)
-  const handleSubmitStep3 = (e: React.FormEvent) => {
+  // Step 4 Validation & Submit (FR-01)
+  const handleSubmitStep4 = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.password) {
       setErrorMessage('Password is required.');
@@ -103,7 +104,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
   return (
     <div className="auth-body">
-      {/* Wizard Step Progress (FR-02) */}
+      {/* Wizard Step Progress (FR-02, FR-04) */}
       <div className="step-wizard" aria-label="Registration Progress">
         <div className={`step-node ${step === 1 ? 'active' : step > 1 ? 'completed' : ''}`}>
           <div className="step-circle">{step > 1 ? '✓' : '1'}</div>
@@ -113,8 +114,12 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
           <div className="step-circle">{step > 2 ? '✓' : '2'}</div>
           <span className="step-label">Contact</span>
         </div>
-        <div className={`step-node ${step === 3 ? 'active' : ''}`}>
-          <div className="step-circle">3</div>
+        <div className={`step-node ${step === 3 ? 'active' : step > 3 ? 'completed' : ''}`}>
+          <div className="step-circle">{step > 3 ? '✓' : '3'}</div>
+          <span className="step-label">Verify</span>
+        </div>
+        <div className={`step-node ${step === 4 ? 'active' : ''}`}>
+          <div className="step-circle">4</div>
           <span className="step-label">Security</span>
         </div>
       </div>
@@ -378,18 +383,29 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <button
                   type="submit"
                   className="btn-primary"
-                  style={{ width: 'auto', minWidth: '130px' }}
+                  style={{ width: 'auto', minWidth: '150px' }}
                   disabled={formData.ageCategory === 'under_15'}
                 >
-                  Next: Password →
+                  Next: Verify Contact →
                 </button>
               </div>
             </form>
           )}
 
-          {/* STEP 3: SECURITY & PASSWORD */}
+          {/* STEP 3: CONTACT VERIFICATION (FR-04) */}
           {step === 3 && (
-            <form onSubmit={handleSubmitStep3} className="auth-form" noValidate>
+            <VerificationStep
+              phone={formData.phone}
+              primaryEmail={formData.primaryEmail}
+              ageCategory={formData.ageCategory || '15_to_49'}
+              onBack={() => setStep(2)}
+              onAllVerified={() => setStep(4)}
+            />
+          )}
+
+          {/* STEP 4: SECURITY & PASSWORD (FR-01) */}
+          {step === 4 && (
+            <form onSubmit={handleSubmitStep4} className="auth-form" noValidate>
               <p className="auth-subtitle">
                 Create a secure password for your FamTree account (FR-01). Minimum 8 characters.
               </p>
@@ -441,10 +457,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <button
                   type="button"
                   className="btn-secondary"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(3)}
                   style={{ width: 'auto' }}
                 >
-                  ← Back to Contact
+                  ← Back to Verification
                 </button>
 
                 <button

@@ -18,3 +18,5 @@ FAMTREE DEVELOPMENT LOG
 [2026-10-20 13:44] Stage 6 (Authentication Foundation) completed successfully: created authService, AuthContext, useAuth hook, LoginForm (name components FR-10 & email), ForgotPasswordModal (FR-11), AuthModal, and integrated with App header
 [2026-10-20 13:48] Stage 7 (Registration Flow) started
 [2026-10-20 13:52] Stage 7 (Registration Flow) completed successfully: implemented 3-step progressive wizard (Identity, Contact, Security), FR-03 age categories (under 15 blocked, 15-49 phone & email required, 50+ phone required & email optional), strictly no DOB collected, password confirmation matching, AuthModal integration
+[2026-10-20 14:08] Stage 8 (Email/Phone Verification) started
+[2026-10-20 14:21] Stage 8 (Email/Phone Verification) completed successfully: created verificationService (SHA-256 hashed 6-digit OTP, 10m expiry, 5-attempt rate limit, 60s resend cooldown), VerificationStep UI (auto-advancing 6-box input, alpha dispatch preview & autofill), integrated into 4-step RegistrationForm wizard, App checklist & badge updated

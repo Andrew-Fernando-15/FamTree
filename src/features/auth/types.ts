@@ -27,3 +27,13 @@ export interface RegistrationValidationResult {
   isValid: boolean;
   errors: Partial<Record<keyof RegistrationFormData, string>>;
 }
+
+export interface ChannelVerificationStatus {
+  isVerified: boolean;
+  isSending: boolean;
+  isVerifying: boolean;
+  codeSent: boolean;
+  previewCode?: string;
+  error?: string;
+  attemptsLeft?: number;
+}

@@ -43,7 +43,7 @@ export const App: React.FC = () => {
               </svg>
               <span className="brand-title">FamTree</span>
             </a>
-            <span className="stage-pill" id="stage-badge">Stage 7: Registration</span>
+            <span className="stage-pill" id="stage-badge">Stage 8: Verification</span>
           </div>
 
           <div className="header-actions">
@@ -105,7 +105,7 @@ export const App: React.FC = () => {
         <section className="hero-section" id="hero-section">
           <div className="hero-tag" id="status-pill">
             <span className="status-dot"></span>
-            <span>Stage 7 Progressive Registration Active</span>
+            <span>Stage 8 Contact Channel Verification Active</span>
           </div>
           <h1 className="hero-title">
             Private, Structured <br />
@@ -113,7 +113,7 @@ export const App: React.FC = () => {
           </h1>
           <p className="hero-subtitle">
             FamTree connects family members through secure member linking, interactive tree exploration,
-            and privacy-controlled profiles. Stage 7 introduces the progressive registration flow.
+            and privacy-controlled profiles. Stage 8 enforces cryptographic phone and email verification (FR-04).
           </p>
 
           {/* Quick Registration CTA for Logged-Out Visitors */}
@@ -308,19 +308,29 @@ export const App: React.FC = () => {
               </svg>
               <div className="check-details">
                 <span className="check-name">Registration Flow</span>
-                <span className="check-status">3-step wizard, FR-03 age rules, password match</span>
+                <span className="check-status">Progressive wizard, FR-03 age rules, password match</span>
               </div>
             </div>
 
-            <div className="check-item pending" id="check-verification-status">
+            <div className="check-item done" id="check-verification-status">
+              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div className="check-details">
+                <span className="check-name">Email/Phone Verification</span>
+                <span className="check-status">FR-04 single-use 6-digit OTP, SHA-256 hash, attempt limits</span>
+              </div>
+            </div>
+
+            <div className="check-item pending" id="check-matching-status">
               <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
                 <circle cx="12" cy="12" r="9" />
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
               <div className="check-details">
-                <span className="check-name">Email/Phone Verification</span>
-                <span className="check-status">Scheduled for Stage 8</span>
+                <span className="check-name">Family Matching</span>
+                <span className="check-status">Scheduled for Stage 9 (FR-05, FR-06, FR-07)</span>
               </div>
             </div>
           </div>
@@ -334,8 +344,8 @@ export const App: React.FC = () => {
             <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <p>
-            <strong>Stage 7 Completed:</strong> Orderly 3-step registration implemented with strict age rule enforcement
-            (under-15 prohibited; 15-49 phone & email required; 50+ phone required, email optional). Verification token workflow follows in Stage 8.
+            <strong>Stage 8 Completed:</strong> Cryptographic phone and email verification active. Single-use OTPs with
+            10-minute expiration, 5-attempt brute-force protection, and SHA-256 database storage implemented in compliance with FR-04.
           </p>
         </aside>
       </main>
@@ -349,7 +359,7 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
-        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 7 Completed</p>
+        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 8 Completed</p>
       </footer>
     </div>
   );

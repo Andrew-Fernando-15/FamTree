@@ -5,5 +5,6 @@
 export * from './types';
 export * from './LoginForm';
 export * from './RegistrationForm';
+export * from './VerificationStep';
 export * from './ForgotPasswordModal';
 export * from './AuthModal';
