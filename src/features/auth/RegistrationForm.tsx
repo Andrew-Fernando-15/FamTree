@@ -3,22 +3,32 @@ import type { AgeCategory, RegistrationFormData } from './types';
 import type { FamilyMember } from '../familyTree/types';
 import { VerificationStep } from './VerificationStep';
 import { FamilyMatchingStep } from './FamilyMatchingStep';
+import { useAuth } from '../../hooks/useAuth';
+import { createAndLinkAccount } from '../../services/accountLinkingService';
+import type { AccountRow } from '../../services/authService';
 import './auth.css';
 
 interface RegistrationFormProps {
   onSuccess?: (data: RegistrationFormData) => void;
   onSwitchToLogin: () => void;
   onContactAdminClick?: () => void;
+  onComplete?: () => void;
 }
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({
   onSuccess,
   onSwitchToLogin,
   onContactAdminClick,
+  onComplete,
 }) => {
-  // Step: 1 = Identity, 2 = Contact, 3 = Verification (FR-04), 4 = Security (FR-01), 5 = Tree Match (FR-05, FR-06, FR-07)
+  const { setLinkedSession } = useAuth();
+
+  // Step: 1 = Identity, 2 = Contact, 3 = Verification (FR-04), 4 = Security (FR-01), 5 = Tree Match & Link (FR-05, FR-22)
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [matchedMember, setMatchedMember] = useState<FamilyMember | null>(null);
+  const [linkedAccount, setLinkedAccount] = useState<AccountRow | null>(null);
+  const [isLinking, setIsLinking] = useState<boolean>(false);
+  const [isConfirmationPending, setIsConfirmationPending] = useState<boolean>(false);
 
   // Form State
   const [formData, setFormData] = useState<RegistrationFormData>({
@@ -101,18 +111,41 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
     }
 
     setErrorMessage(null);
-    setStep(5); // Proceed to Family Matching in Tree (FR-05, FR-06)
+    setStep(5); // Proceed to Family Matching & Linking (FR-05, FR-22)
   };
 
-  const handleMatchConfirmed = (member: FamilyMember) => {
-    setMatchedMember(member);
-    setIsSuccess(true);
-    onSuccess?.(formData);
+  // Stage 10: Permanent Account Creation and Member Linking (FR-22)
+  const handleMatchConfirmed = async (member: FamilyMember) => {
+    setErrorMessage(null);
+    setIsLinking(true);
+
+    try {
+      const result = await createAndLinkAccount(formData, member);
+      setIsLinking(false);
+
+      if (!result.success) {
+        setErrorMessage(result.errorMessage || 'Failed to complete account-to-member linking (FR-22).');
+        return;
+      }
+
+      setMatchedMember(result.member || member);
+      setLinkedAccount(result.account);
+      setIsConfirmationPending(!!result.isEmailConfirmationPending);
+      setIsSuccess(true);
+
+      if (result.account && result.member && result.user) {
+        setLinkedSession(result.account, result.member, result.user);
+      }
+      onSuccess?.(formData);
+    } catch (err) {
+      setIsLinking(false);
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred during account linking.');
+    }
   };
 
   return (
     <div className="auth-body">
-      {/* Wizard Step Progress (FR-02, FR-04, FR-05) */}
+      {/* Wizard Step Progress (FR-02, FR-04, FR-05, FR-22) */}
       <div className="step-wizard" aria-label="Registration Progress">
         <div className={`step-node ${step === 1 ? 'active' : step > 1 ? 'completed' : ''}`}>
           <div className="step-circle">{step > 1 ? '✓' : '1'}</div>
@@ -130,9 +163,9 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
           <div className="step-circle">{step > 4 ? '✓' : '4'}</div>
           <span className="step-label">Security</span>
         </div>
-        <div className={`step-node ${step === 5 ? 'active' : ''}`}>
-          <div className="step-circle">5</div>
-          <span className="step-label">Match</span>
+        <div className={`step-node ${step === 5 ? (isSuccess ? 'completed' : 'active') : ''}`}>
+          <div className="step-circle">{isSuccess ? '✓' : '5'}</div>
+          <span className="step-label">Link</span>
         </div>
       </div>
 
@@ -148,17 +181,28 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
         </div>
       )}
 
-      {/* Success State */}
-      {isSuccess && matchedMember ? (
+      {/* Linking in Progress Spinner (Stage 10) */}
+      {isLinking && (
+        <div className="matching-loading-card" style={{ margin: 'var(--space-4) 0' }}>
+          <div className="matching-spinner"></div>
+          <h3 className="matching-loading-title">Finalizing Account & Tree Linking (FR-22)</h3>
+          <p className="matching-loading-subtitle">
+            Creating Supabase credentials, writing the linking record to <strong>accounts</strong>, and synchronizing verified contact channels...
+          </p>
+        </div>
+      )}
+
+      {/* Success State (Stage 10: FR-22 Account-to-Member Linked) */}
+      {!isLinking && isSuccess && matchedMember ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', textAlign: 'center' }}>
           <div className="auth-alert auth-alert-success" role="status">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <polyline points="20 6 9 17 4 12" />
             </svg>
             <div>
-              <strong>Profile Matched & Identity Confirmed! (FR-06)</strong>
+              <strong>Account Successfully Created & Linked! (FR-22)</strong>
               <p style={{ marginTop: '2px', fontSize: '0.8125rem' }}>
-                Confirmed member: <strong>{matchedMember.name} {matchedMember.surname}</strong> (Born: {matchedMember.date_of_birth})
+                Your account is permanently bound to <strong>{matchedMember.name} {matchedMember.surname}</strong> in the family tree.
               </p>
             </div>
           </div>
@@ -168,11 +212,22 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
               <div className="candidate-avatar-badge">
                 {matchedMember.name.charAt(0)}{matchedMember.surname.charAt(0)}
               </div>
-              <div>
-                <h4 className="candidate-fullname">{matchedMember.name} {matchedMember.surname}</h4>
-                <span className="candidate-status-pill">{matchedMember.life_status}</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <h4 className="candidate-fullname">{matchedMember.name} {matchedMember.surname}</h4>
+                  <span className="candidate-status-pill">{matchedMember.life_status}</span>
+                </div>
+                <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: '4px' }}>
+                  <span className="card-badge" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34d399' }}>
+                    Role: {linkedAccount?.role || 'member'}
+                  </span>
+                  <span className="card-badge" style={{ background: 'rgba(56, 189, 248, 0.2)', color: '#38bdf8' }}>
+                    FR-22 Verified
+                  </span>
+                </div>
               </div>
             </div>
+
             <div className="candidate-meta-grid">
               <div className="meta-item">
                 <span className="meta-label">Father</span>
@@ -183,29 +238,67 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 <strong className="meta-value">{matchedMember.mother_name || 'Not recorded'}</strong>
               </div>
               <div className="meta-item">
+                <span className="meta-label">Date of Birth</span>
+                <strong className="meta-value">{matchedMember.date_of_birth || 'Not recorded'}</strong>
+              </div>
+              <div className="meta-item">
+                <span className="meta-label">Linked Member ID</span>
+                <strong className="meta-value" style={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>
+                  {matchedMember.id.slice(0, 10)}...
+                </strong>
+              </div>
+              <div className="meta-item">
                 <span className="meta-label">Verified Phone</span>
                 <strong className="meta-value">{formData.phone}</strong>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Verified Email</span>
-                <strong className="meta-value">{formData.primaryEmail || 'None (Age 50+)'}</strong>
+                <strong className="meta-value">{formData.primaryEmail || 'None (Age 50+ exemption)'}</strong>
               </div>
             </div>
           </div>
 
-          <p className="auth-subtitle">
-            Next: Permanent database account linking and credentials will be finalized in <strong>Stage 10 (Account Linking)</strong>.
-          </p>
+          {isConfirmationPending && (
+            <div className="auth-alert auth-alert-warning" role="note" style={{ textAlign: 'left' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <div>
+                <strong>Email Confirmation Link Sent</strong>
+                <p style={{ marginTop: '2px', fontSize: '0.8125rem' }}>
+                  A confirmation link was dispatched to <strong>{formData.primaryEmail}</strong>. You can click it anytime to activate self-service email recovery.
+                </p>
+              </div>
+            </div>
+          )}
 
-          <button
-            type="button"
-            className="btn-primary"
-            onClick={onSwitchToLogin}
-          >
-            Go to Sign In
-          </button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', marginTop: 'var(--space-2)' }}>
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => {
+                if (onComplete) {
+                  onComplete();
+                } else {
+                  onSwitchToLogin();
+                }
+              }}
+              id="btn-enter-dashboard"
+            >
+              Enter FamTree Dashboard →
+            </button>
+            <button
+              type="button"
+              className="auth-text-link"
+              onClick={onSwitchToLogin}
+            >
+              Switch Account / Sign In
+            </button>
+          </div>
         </div>
-      ) : (
+      ) : !isLinking ? (
 
         <>
           {/* STEP 1: IDENTITY BASICS */}
@@ -530,7 +623,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
             />
           )}
         </>
-      )}
+      ) : null}
     </div>
   );
 };

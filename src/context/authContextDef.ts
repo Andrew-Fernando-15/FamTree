@@ -19,6 +19,7 @@ export interface AuthContextType {
   logout: () => Promise<{ error: AuthError | null }>;
   resetPassword: (email: string) => Promise<{ error: AuthError | null }>;
   refreshProfile: () => Promise<void>;
+  setLinkedSession: (account: AccountRow, member: FamilyMemberRow, user: User) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

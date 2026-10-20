@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { authService, type AccountRow, type FamilyMemberRow } from '../services/authService';
+import { getSavedLinkedSession, clearSavedLinkedSession } from '../services/accountLinkingService';
 import { AuthContext } from './authContextDef';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -14,11 +15,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const loadProfile = useCallback(async (authUserId: string) => {
     try {
       const profile = await authService.getLinkedProfile(authUserId);
-      setAccount(profile.account);
-      setMember(profile.member);
+      if (profile.account && profile.member) {
+        setAccount(profile.account);
+        setMember(profile.member);
+      } else {
+        // Check for local fallback linked session
+        const saved = getSavedLinkedSession();
+        if (saved && (saved.user.id === authUserId || saved.account.auth_user_id === authUserId)) {
+          setAccount(saved.account);
+          setMember(saved.member);
+        } else {
+          setAccount(profile.account);
+          setMember(profile.member);
+        }
+      }
     } catch {
-      setAccount(null);
-      setMember(null);
+      const saved = getSavedLinkedSession();
+      if (saved && (saved.user.id === authUserId || saved.account.auth_user_id === authUserId)) {
+        setAccount(saved.account);
+        setMember(saved.member);
+      } else {
+        setAccount(null);
+        setMember(null);
+      }
     }
   }, []);
 
@@ -28,14 +47,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user, loadProfile]);
 
+  const setLinkedSession = useCallback((newAccount: AccountRow, newMember: FamilyMemberRow, newUser: User) => {
+    setUser(newUser);
+    setAccount(newAccount);
+    setMember(newMember);
+  }, []);
+
   useEffect(() => {
-    // 1. Get initial session
+    // 1. Get initial session from Supabase
     supabase.auth.getSession().then(({ data: { session: initialSession } }) => {
       setSession(initialSession);
       setUser(initialSession?.user ?? null);
       if (initialSession?.user) {
         loadProfile(initialSession.user.id).finally(() => setIsLoading(false));
       } else {
+        // Check if there is a saved linked session from registration
+        const saved = getSavedLinkedSession();
+        if (saved) {
+          setUser(saved.user);
+          setAccount(saved.account);
+          setMember(saved.member);
+        }
         setIsLoading(false);
       }
     });
@@ -50,8 +82,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (newSession?.user) {
         await loadProfile(newSession.user.id);
       } else {
-        setAccount(null);
-        setMember(null);
+        const saved = getSavedLinkedSession();
+        if (!saved) {
+          setAccount(null);
+          setMember(null);
+        }
       }
       setIsLoading(false);
     });
@@ -90,6 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = useCallback(async () => {
     setIsLoading(true);
     const res = await authService.logout();
+    clearSavedLinkedSession();
     setUser(null);
     setSession(null);
     setAccount(null);
@@ -114,6 +150,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       logout,
       resetPassword,
       refreshProfile,
+      setLinkedSession,
     }),
     [
       user,
@@ -126,6 +163,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       logout,
       resetPassword,
       refreshProfile,
+      setLinkedSession,
     ]
   );
 

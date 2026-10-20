@@ -4,3 +4,4 @@
 export * from './authService';
 export * from './verificationService';
 export * from './familyMatchingService';
+export * from './accountLinkingService';

@@ -83,6 +83,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <RegistrationForm
             onSwitchToLogin={() => setCurrentView('login')}
             onContactAdminClick={() => setCurrentView('contact-admin')}
+            onComplete={handleClose}
           />
         )}
 

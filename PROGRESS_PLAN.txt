@@ -21,7 +21,7 @@ Stage 6: Authentication Foundation ...... DONE
 Stage 7: Registration Flow .............. DONE
 Stage 8: Email/Phone Verification ....... DONE
 Stage 9: Family Matching ................ DONE
-Stage 10: Account-to-Member Linking ..... PENDING
+Stage 10: Account-to-Member Linking ..... DONE
 Stage 11: Contact Admin ................. PENDING
 Stage 12: Dashboard ..................... PENDING
 Stage 13: Family Tree Data Service ...... PENDING
@@ -113,7 +113,16 @@ Goal: Preconfigured tree search and identity confirmation (FR-05, FR-06, FR-07, 
 - WhatsApp direct chat (unprefilled) and support email loaded from admin_contacts (FR-09)
 - Seamless 5th step in registration flow
 
------ STAGE 10 onwards -----
+----- STAGE 10: ACCOUNT-TO-MEMBER LINKING (DONE) -----
+Goal: Permanent account creation and member linking (FR-22, TRD §3)
+- Supabase Auth user creation with verified credentials
+- accounts table row insertion (auth_user_id, linked_member_id, role: member, is_verified: true)
+- Synchronize verified phone and primary_email to family_members table
+- Seed default profile_visibility preferences (phone, email, study, work)
+- AuthContext session activation (setLinkedSession) and automatic login
+- Celebratory linked card with role and FR-22 verification status
+
+----- STAGE 11 onwards -----
 Follow the official EI Guidance document in /docs
 
 
