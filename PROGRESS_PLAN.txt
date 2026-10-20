@@ -1,0 +1,91 @@
+FAMTREE — STAGE-BY-STAGE PROGRESS PLAN
+Last Updated: 20 October 2026
+
+=====================================================
+HOW TO USE THIS FILE
+=====================================================
+- Work on ONLY ONE stage at a time
+- After finishing a stage, mark it as DONE
+- Update log.txt every time you complete something
+- If chat expires, just open this file and continue from the next pending stage
+
+=====================================================
+CURRENT STATUS
+=====================================================
+Stage 1: Foundation ..................... DONE
+Stage 2: Project Architecture ........... DONE
+Stage 3: Supabase Setup ................. PENDING
+Stage 4: Database Schema ................ PENDING
+Stage 5: Database Security (RLS) ........ PENDING
+Stage 6: Authentication Foundation ...... PENDING
+Stage 7: Registration Flow .............. PENDING
+Stage 8: Email/Phone Verification ....... PENDING
+Stage 9: Family Matching ................ PENDING
+Stage 10: Account-to-Member Linking ..... PENDING
+Stage 11: Contact Admin ................. PENDING
+Stage 12: Dashboard ..................... PENDING
+Stage 13: Family Tree Data Service ...... PENDING
+Stage 14: Family Tree UI ................ PENDING
+Stage 15: Member Pop-up ................. PENDING
+Stage 16: Profile Management ............ PENDING
+Stage 17: Admin Console ................. PENDING
+Stage 18: Security Hardening ............ PENDING
+Stage 19: Testing ....................... PENDING
+Stage 20: Alpha Release ................. PENDING
+
+=====================================================
+DETAILED STAGE INSTRUCTIONS
+=====================================================
+
+----- STAGE 1: FOUNDATION (DONE) -----
+- React + TypeScript + Vite project created
+- Basic landing page working
+- docs/ folder contains all specifications
+
+----- STAGE 2: PROJECT ARCHITECTURE (DONE) -----
+Goal: Create clean folder structure
+Folders to create:
+src/
+  components/
+  pages/
+  layouts/
+  features/
+    auth/
+    dashboard/
+    familyTree/
+    member/
+    profile/
+    admin/
+  services/
+  hooks/
+  types/
+  utils/
+  lib/
+  assets/
+
+Do not implement features yet.
+
+----- STAGE 3: SUPABASE SETUP -----
+Goal: Connect frontend to Supabase
+- Create .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
+- Create src/lib/supabase.ts client
+- Test connection
+
+----- STAGE 4: DATABASE SCHEMA -----
+Goal: Create all tables according to Data Model document
+Tables: family_members, accounts, relationships, etc.
+
+----- STAGE 5: DATABASE SECURITY (RLS) -----
+Goal: Add Row Level Security policies
+
+----- STAGE 6 onwards -----
+Follow the official EI Guidance document in /docs
+
+=====================================================
+RECOVERY INSTRUCTIONS
+=====================================================
+If this chat stops:
+1. Open PROGRESS_PLAN.txt
+2. See which stage is PENDING
+3. Open log.txt to see last successful work
+4. Continue from the next stage using Antigravity

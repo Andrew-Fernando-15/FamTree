@@ -1,0 +1,372 @@
+FAMTREE — MASTER SPECIFICATION
+September 2026
+
+
+================================================================================
+FAMTREE — PRODUCT REQUIREMENTS DOCUMENT (PRD)
+================================================================================
+
+1. Product Overview
+FamTree is a web-based digital family-tree system. The first production scope is restricted to one preconfigured family tree belonging to the user's family/surname. The product is designed to let family members register, securely link an account to an existing family-tree member, view the tree, and view selected member information.
+
+2. Product Goal
+Create a simple, structured, family-only digital tree that can later expand into a broader family platform without overloading users during registration or the first release.
+
+3. Version 1 Scope
+• Web application, hosted online.
+• Family tree is preconfigured.
+• Every account must be linked to one tree member.
+• A tree member may exist without an account.
+• Registration is intentionally lightweight and orderly rather than presenting every question at once.
+• Initial registration fields: user's name, father's name, mother's name, surname, email, phone number, password, and re-enter password.
+• Date of birth is not requested during registration.
+• Email and phone verification are part of the registration flow.
+• Under-15 users cannot create accounts.
+• For the agreed initial age rule: users above 15 and below 50 require phone and email; for 50+ the email is optional and phone remains required.
+• A second email is optional.
+• If both registered email and phone are inaccessible, recovery goes to Contact Admin.
+• Successful registration checks the preconfigured family tree and links the account to the appropriate member.
+• If a matching member is found, the user is shown identifying details for confirmation, including birth date and family-related identifying information.
+• If duplicate names exist, multiple candidates are shown with name, father's name, mother's name, and date of birth.
+• If the details do not match or no member is found, the user is sent to Contact Admin.
+• Contact Admin page contains a short instruction, a WhatsApp option, and an email option. WhatsApp opens the chat without prefilled text.
+• Returning users who log in are taken to the main dashboard.
+• Family Tree opens centered on the logged-in member.
+• Initial tree view shows the logged-in member, parents, spouse if any, siblings if any, and children if any. Users can zoom out and pan to explore.
+• Member cards use a common pop-up format for the logged-in member and other members.
+• Pop-up information includes only information not already obvious from the tree: name, birth date, active/inactive/deceased status, contact information when shared, and optional study/work information. Work/study details are title/status based; specific details are shown only when the member chooses to provide/share them.
+• Personal profile edits may be allowed for editable contact/status/work-study information. Name, parents' names, and date of birth are protected and require admin handling.
+• Changing email or phone requires verification.
+• Level-2 admin has broad edit/delete rights subject to preserving tree integrity.
+• Later releases may introduce the age-based 30+ linking restriction; it is explicitly not part of the initial release.
+• No account is created for a person who is not represented in the preconfigured family tree; they are directed to Contact Admin instead.
+
+4. Authentication
+Login uses the person's name components in this order: user's name, father's name, mother's name, surname, followed by password. Registration also includes password and re-enter password. Account recovery uses the normal recovery route; the system should not add lengthy family-question recovery in version 1.
+
+5. Non-Goals for Version 1
+No public multi-family onboarding, no complex age-based approval workflow, no long registration questionnaire, no date-of-birth collection at registration, and no complicated recovery questionnaire.
+
+6. Roadmap
+Development is organized as stages rather than artificial feature releases. Stage 1–20 constitute the Alpha milestone. The next 25 stages constitute the Beta milestone. Further stages lead to the main/public production version. Alpha is intended for the project owner; Beta is intended for controlled testing (the working plan records 15 testers); V1.0 is the public production release.
+
+7. Success Criteria
+A family member can register with minimal friction, verify contact information, correctly identify/link their tree member, log in later, reach the dashboard, open a useful centered family-tree view, and view consistent member pop-ups without exposing information the member has not chosen to share.
+
+================================================================================
+FAMTREE — FUNCTIONAL REQUIREMENTS DOCUMENT (FRD)
+================================================================================
+
+FR-01 Registration
+The system shall provide fields for name, father's name, mother's name, surname, email, phone number, password, and re-enter password.
+
+FR-02 Registration sequence
+The system shall present registration in an orderly, staged manner rather than asking every possible family detail at once.
+
+FR-03 Age rule
+The system shall prevent account creation for users under 15. The initial agreed contact-verification rule is: above 15 and below 50 requires phone and email; age 50+ may use phone with email optional.
+
+FR-04 Email/phone verification
+The system shall verify required contact channels before account completion. A second email is optional.
+
+FR-05 Family membership check
+The system shall check the preconfigured family tree before completing account linking.
+
+FR-06 Single unique match
+When a unique family member match is found, the system shall display identifying details and ask the user to confirm that the profile is theirs.
+
+FR-07 Duplicate match
+When multiple members have the same name, the system shall display separate choices using name, father's name, mother's name, and date of birth.
+
+FR-08 Mismatch/no match
+When the person cannot establish the correct match, the system shall route them to Contact Admin.
+
+FR-09 Contact Admin
+The page shall provide a short instruction plus WhatsApp and email contact methods. WhatsApp shall open the admin chat without prefilled text.
+
+FR-10 Login
+Login shall accept the name components in the order: name, father's name, mother's name, surname, plus password.
+
+FR-11 Recovery
+Forgot-password/recovery shall use the registered recovery channels. If both email and phone are inaccessible, Contact Admin is the final fallback.
+
+FR-12 Dashboard
+Successful login shall take the user to the main dashboard.
+
+FR-13 Family tree view
+The tree shall open centered on the logged-in member and initially show immediate family: parents, spouse if any, siblings if any, and children if any.
+
+FR-14 Tree navigation
+The user shall be able to zoom out and pan to explore other family members.
+
+FR-15 Member pop-up
+All member cards shall use a consistent pop-up format.
+
+FR-16 Pop-up content
+The pop-up shall avoid repeating relationship information already obvious from the tree and show name, birth date, life/status state, shared contact information, and optional study/work information.
+
+FR-17 Privacy of optional information
+Optional work/study/contact details shall not be shown when the member has not supplied/chosen to share them.
+
+FR-18 Profile edits
+Users may edit permitted personal/contact/status/work-study information. Protected identity/tree-structure fields such as name, parents' names, and date of birth require admin handling.
+
+FR-19 Re-verification
+Email or phone changes shall trigger verification.
+
+FR-20 Admin
+Level-2 admin may broadly edit/delete tree information provided tree integrity is maintained.
+
+FR-21 Member without account
+A tree member may exist without an account.
+
+FR-22 Account-to-member rule
+Every account must ultimately be linked to a tree member.
+
+================================================================================
+FAMTREE — TECHNICAL REQUIREMENTS DOCUMENT (TRD)
+================================================================================
+
+1. Architecture
+Web application architecture: React + TypeScript + Vite frontend; Supabase backend using PostgreSQL, Auth, Storage, Realtime, and Edge Functions. Public internet deployment is planned.
+
+2. Frontend
+React component architecture should separate authentication, dashboard, family-tree visualization, member pop-ups, profile management, and admin interfaces. TypeScript types should represent account, member, relationship, verification, and permission states.
+
+3. Backend
+PostgreSQL is the source of truth for family members and relationships. Supabase Auth manages credentials and sessions. Edge Functions should handle privileged server-side operations and verification-sensitive flows.
+
+4. Data integrity
+Family relationships must be modeled explicitly rather than inferred only from UI. Delete/update operations must preserve valid parent/child/spouse/sibling relationships and prevent orphaned or contradictory records.
+
+5. Authorization
+Role-based authorization shall distinguish normal members from administrative roles. Level-2 admin receives broad edit/delete capabilities subject to integrity rules. Database-level policies should enforce access rather than relying only on UI controls.
+
+6. Privacy
+Contact, study, work, and other optional profile information shall have explicit visibility rules. The UI must not display unset optional information.
+
+7. Authentication security
+Passwords must be handled by the authentication provider and never stored as plaintext. Verification codes/tokens must expire and be single-use. Sessions should be revocable.
+
+8. Recovery
+Use standard authenticated recovery mechanisms through verified email/phone where supported. Contact Admin is the final manual route when normal recovery cannot work.
+
+9. Performance
+The tree UI should initially load a focused neighborhood around the logged-in member rather than rendering an unnecessarily large tree view at full detail. Pan/zoom should not repeatedly reload unchanged member data.
+
+10. Deployment
+The first public-facing application is intended to be hosted online. Environment secrets must remain outside the frontend bundle.
+
+================================================================================
+FAMTREE — UI/UX SPECIFICATION
+================================================================================
+
+1. Design principle
+Simple, family-oriented, low-friction, progressive disclosure. Registration should not feel like a long questionnaire.
+
+2. Registration screens
+Step 1: identity basics — name, father's name, mother's name, surname. Step 2: contact — email and phone according to the age rule. Step 3: password — password and re-enter password. Verification is then completed before account creation/linking.
+
+3. Matching screen
+Show the detected family member and a concise set of identifying details. Ask: 'Is this you?' If duplicate names exist, show candidate cards with name, father's name, mother's name, and date of birth.
+
+4. Contact Admin screen
+Short message explaining that an issue occurred and instructing the user to contact the admin. Two clear actions: WhatsApp and Email. WhatsApp opens the chat with no prefilled message.
+
+5. Login screen
+Name, father's name, mother's name, surname, password, and a clear recovery action.
+
+6. Dashboard
+The main landing screen after successful login. The Family Tree is a primary action.
+
+7. Family Tree
+Start centered on the logged-in member. Show parents, spouse if any, siblings if any, and children if any. Keep the initial zoom close; allow zoom-out and pan.
+
+8. Member pop-up
+Consistent layout for every member. Do not duplicate obvious tree relationships. Show name, birth date, active/inactive/deceased status, shared contact details, and optional work/study information.
+
+9. Profile editing
+Clearly separate editable personal details from protected family identity/tree-structure details.
+
+================================================================================
+FAMTREE — DATA MODEL & DATABASE SPECIFICATION
+================================================================================
+
+Core entities
+User account, Family Member, Family Relationship, Verification Record, Role/Permission, Contact/Visibility Preference, Admin Support Contact.
+
+Family Member
+Suggested logical fields: member_id, name, father's_member_id, mother's_member_id, surname, date_of_birth, life_status, phone, primary_email, secondary_email_optional, study_status_optional, work_status_optional, work_details_optional, profile_visibility settings, created_at, updated_at.
+
+Account
+Suggested logical fields: account_id, auth_user_id, linked_member_id, verification state, role, created_at, updated_at.
+
+Relationship
+Suggested fields: relationship_id, source_member_id, target_member_id, relationship_type, created_at. Relationship types must be constrained to supported family relationships.
+
+Integrity constraints
+Every account has exactly one linked member. A member can have no account. Protected identity fields should not be changed by ordinary member edits. Relationship changes must be validated.
+
+Visibility
+Optional contact/work/study fields require explicit visibility handling so absent or private values do not appear in member pop-ups.
+
+Note
+This is a logical schema. Exact SQL names, indexes, foreign keys, RLS policies, and migration files should be finalized during implementation without changing the agreed product behavior.
+
+================================================================================
+FAMTREE — API SPECIFICATION
+================================================================================
+
+Authentication
+Register, verify email, verify phone, login, logout, password reset, session refresh/revocation.
+
+Family matching
+Resolve a registration identity against the preconfigured family tree; return one candidate or multiple candidates with safe identifying fields.
+
+Member
+Get member profile, update permitted profile fields, request protected-field change through admin workflow.
+
+Tree
+Get the logged-in member's immediate family neighborhood and request expanded tree data for zoom-out/navigation.
+
+Admin
+Manage members and relationships according to role; validate tree integrity before mutations.
+
+Support
+Return configured admin contact channels used by the Contact Admin page.
+
+Security contract
+The API must never return hidden/private profile fields merely because a client asks for them. Authorization must be enforced server-side.
+
+================================================================================
+FAMTREE — AUTHENTICATION, SECURITY & PRIVACY SPECIFICATION
+================================================================================
+
+Authentication rules
+Under 15: no account. Above 15 and below 50: phone and email required. Age 50+: phone required, email optional. Second email is optional.
+
+Verification
+Required contact channels must be verified. Any email or phone change must be verified again.
+
+Account recovery
+Use normal recovery mechanisms. Do not add the previously discussed lengthy family-question recovery to version one. If both email and phone are inaccessible, route to Contact Admin.
+
+Impersonation protection
+Family-member matching is not itself a substitute for credential security. Existing linked accounts should be accessed through normal login/recovery. The initial version should avoid exposing sensitive data during matching.
+
+Privacy
+Only profile information the member has supplied and chosen to share should be displayed in optional sections. Contact and employment/study details should be minimized.
+
+Admin security
+Administrative operations must be protected server-side and audited. Level-2 admin has broad edit/delete capability but cannot be allowed to corrupt family-tree integrity.
+
+Later rule
+The age-based 30+ admin approval restriction for profile linking is a later-version feature, not an Alpha/Beta/V1.0 initial feature.
+
+================================================================================
+FAMTREE — TEST PLAN
+================================================================================
+
+Registration
+Test under-15 rejection; 15–49 contact requirements; 50+ email optional; password confirmation; email/phone verification; optional second email.
+
+Family matching
+Test unique match, duplicate-name match, incorrect candidate, no match, and Contact Admin routing.
+
+Login/recovery
+Test valid login, invalid credentials, password recovery, loss of one recovery channel, loss of both channels and Contact Admin fallback.
+
+Tree
+Test centering on logged-in member; parents/spouse/siblings/children rendering; zoom-out; pan; member pop-up consistency.
+
+Profile
+Test permitted edits, protected fields, verification on contact changes, optional-field hiding.
+
+Admin
+Test level-2 admin edits/deletes and integrity constraints.
+
+Security
+Test authorization boundaries, session expiry/revocation, hidden-field protection, password handling, and privilege escalation attempts.
+
+Acceptance
+Alpha: owner-only validation. Beta: controlled testing with the planned 15 testers. Main/V1.0: production acceptance against the agreed requirements.
+
+================================================================================
+FAMTREE — STAGE-BASED DEVELOPMENT ROADMAP
+================================================================================
+
+Stage philosophy
+The project will be developed as a sequence of stages. A milestone is reached only after the required stage set is completed.
+
+Stages 1–20 — Alpha
+Complete the foundational product through 20 stages. Alpha is for the project owner and is the first coherent working version.
+
+Stages 21–45 — Beta
+Complete the next 25 stages. Beta is for controlled testing; the current plan uses 15 testers.
+
+After Stage 45 — Main/Public
+Continue through the remaining production-readiness stages until the main public version/V1.0 is ready.
+
+Suggested stage groups
+Architecture → authentication → registration → verification → family matching → tree model → tree UI → member pop-ups → profile editing → admin tools → security → testing → deployment → beta fixes → production hardening.
+
+Important
+The stage plan is intentionally separate from feature scope. New features should be assigned to stages rather than creating unnecessary version labels.
+
+================================================================================
+FAMTREE — ROLES & PERMISSIONS
+================================================================================
+
+Normal member
+Can log in, view the family tree, view member pop-ups, and edit only the profile fields permitted by the product rules.
+
+Level-2 admin
+Can broadly edit/delete members and relationships across the tree, subject to tree-integrity validation. This role is not restricted to only its own profile.
+
+Protected fields
+Name, parents' names, and date of birth are not ordinary self-service edits. Changes require an admin-controlled process.
+
+Later roles/rules
+The later 30+ linking restriction is intentionally excluded from the initial release and may be introduced in a future stage.
+
+================================================================================
+FAMTREE — RELEASE & DEPLOYMENT PLAN
+================================================================================
+
+Alpha
+Owner-only working release after Stage 20.
+
+Beta
+Controlled release after Stage 45, with the planned 15 testers.
+
+V1.0/Main
+Public production release after remaining production-readiness stages and acceptance testing.
+
+Hosting
+The application is intended to be online and publicly reachable at the main release. The backend uses Supabase services; the frontend uses the agreed React + TypeScript + Vite stack.
+
+Operational requirements
+Use environment variables for secrets, database backups/restore procedures, logging, error monitoring, database migration control, and rollback procedures.
+
+================================================================================
+FAMTREE — MASTER DOCUMENTATION INDEX
+================================================================================
+
+Document set
+1. PRD — product scope and requirements
+2. FRD — functional behavior
+3. TRD — technical architecture and constraints
+4. UI/UX Specification — screens and interaction rules
+5. Data Model & Database — entities and integrity
+6. API Specification — service contracts
+7. Authentication/Security/Privacy — account and data protection
+8. Test Plan — verification and acceptance
+9. Stage Roadmap — 20-stage Alpha, 25-stage Beta, then Main
+10. Admin & Roles — permissions
+11. Release & Deployment — Alpha/Beta/V1.0 release process
+
+Documentation rule
+These documents are the baseline specification before coding. Implementation should follow them; any intentional change should be recorded as a requirements change rather than silently altering behavior.
+
+Open items
+Exact family data import method, final visual design, exact admin contact details, exact production domain, exact database table/column names, and final deployment provider details remain implementation decisions and should be filled in without changing the agreed user flows.
