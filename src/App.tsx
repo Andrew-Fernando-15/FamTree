@@ -28,7 +28,7 @@ export const App: React.FC = () => {
               </svg>
               <span className="brand-title">FamTree</span>
             </a>
-            <span className="stage-pill" id="stage-badge">Stage 4: Database Schema</span>
+            <span className="stage-pill" id="stage-badge">Stage 5: Database Security (RLS)</span>
           </div>
           <div className="header-actions">
             <span className="docs-link" id="docs-indicator">
@@ -56,7 +56,7 @@ export const App: React.FC = () => {
         <section className="hero-section" id="hero-section">
           <div className="hero-tag" id="status-pill">
             <span className="status-dot"></span>
-            <span>Stage 4 Schema & Types Configured</span>
+            <span>Stage 5 Security Policies Configured</span>
           </div>
           <h1 className="hero-title">
             Private, Structured <br />
@@ -210,15 +210,25 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="check-item pending" id="check-rls-status">
+            <div className="check-item done" id="check-rls-status">
+              <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <div className="check-details">
+                <span className="check-name">Database Security (RLS)</span>
+                <span className="check-status">RLS policies enabled on all 6 tables with identity protection</span>
+              </div>
+            </div>
+
+            <div className="check-item pending" id="check-auth-status">
               <svg className="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2">
                 <circle cx="12" cy="12" r="9" />
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
               <div className="check-details">
-                <span className="check-name">Database Security (RLS)</span>
-                <span className="check-status">Scheduled for Stage 5</span>
+                <span className="check-name">Authentication Foundation</span>
+                <span className="check-status">Scheduled for Stage 6</span>
               </div>
             </div>
           </div>
@@ -232,15 +242,15 @@ export const App: React.FC = () => {
             <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           <p>
-            <strong>Stage 4 Constraint Adherence:</strong> Core database schema DDL, seed data, and TypeScript interfaces defined.
-            Row Level Security (RLS) policies and authentication remain strictly scheduled for Stage 5 and Stage 6.
+            <strong>Stage 5 Constraint Adherence:</strong> Row Level Security policies and protected-field constraints defined.
+            Authentication flow implementation begins in Stage 6.
           </p>
         </aside>
       </main>
 
       {/* Footer */}
       <footer className="app-footer" id="app-footer">
-        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 4 Completed</p>
+        <p>FamTree Project Foundation • 20-Stage Alpha Roadmap • Stage 5 Completed</p>
       </footer>
     </div>
   );
